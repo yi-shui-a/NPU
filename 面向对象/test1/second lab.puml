@@ -1,0 +1,90 @@
+@startuml
+skinparam groupInheritance 2
+
+class BorrowingAndLendingSystem
+class Lender
+class Borrower
+class Person
+class Loan
+
+
+BorrowingAndLendingSystem "1" ---> "0...* -loans" Loan
+
+Loan "1" ---> "1 -borrower" Borrower
+Loan "1" ---> "1 -lender" Lender
+
+Person <|--- Borrower
+Person <|---- Lender
+BorrowingAndLendingSystem "1" ---> "0...* -persons" Person
+
+class BorrowingAndLendingSystem {
+
++addLoan(loan:Loan):Boolean
++addPerson(person:Person):Boolean
++getPerson(id:String):Person
++removePerson(id:String):Boolean
++addLender(lender:Lender):Boolean
++addBorrower(borrower:Borrower):Boolean
++getLender(id:String):Lender
++getBorrower(id:String):Borrower
++removeLender(id:String):Boolean
++removeBorrower(id:String):Boolean
+
+}
+
+class Person {
+
+-name:String
+-address:String
+-phone:String
+-id:String
+
++getName():String
++getAddress():String
++getPhone():String
++getId():String
++setName(name:String):Boolean
++setAddress(address:String):Boolean
++setPhone(phone:String):Boolean
++setId(id:String):Boolean
+
+}
+class Lender {
+
+-maxLoanAmount:double
+
++getMaxLoanAmount():double
++setMaxLoanAmount():double
+}
+
+class Borrower {
+
+-monthlyIncome:double
+
++getMonthlyIncome():double
++setMonthlyIncome():double
+}
+
+class Loan {
+
+-loanId:String
+-loanAmount:double
+-interestRate:double
+-loanTerm:int
+
++getLender():Lender
++getBorrower():Borrower
++getLoanId():String
++getLoanAmount():String
++getInterestRate():String
++getLoanTerm():String
++addLender(lender:Lender):Lender
++addBorrower(borrower:Borrower):Borrower
++setLoanId(loanId:String):Boolean
++setLoanAmount(loanAmount:double):Boolean
++setInterestRate(interestRate:double):Boolean
++setLoanTerm(loanTerm:int):Boolean
+
+}
+
+@enduml

@@ -1,0 +1,234 @@
+
+@startuml
+skinparam groupInheritance 2
+
+class DrugManagementSystem
+class PersonList
+class Person
+class SaleSystem
+class SaleDrug
+class Drug
+class DrugList
+class SaleRecordSheet
+class WarehousingRecordSheet
+class SaleRecord
+class WarehousingRecord
+class FinancialSystem
+class PurchaseSystem
+class LoadingPerson
+class LoadingDrug
+interface DrugDataLoading
+interface PersonDataLoading
+
+
+DrugManagementSystem "1" --> "1 -personList" PersonList
+DrugManagementSystem "1" --> "1 -saleSystem" SaleSystem
+DrugManagementSystem "1" -> "1 -financialSystem" FinancialSystem
+DrugManagementSystem "1" --> "1 -drugList" DrugList
+DrugManagementSystem "1" --> "1 -purchase" PurchaseSystem
+DrugManagementSystem "1" --> "1 -person" Person
+
+PersonList "1" --> "0...* -persons" Person
+
+FinancialSystem "1" --> "1 -saleRecordSheet" SaleRecordSheet
+FinancialSystem "1" --> "1 -warehousingRecordSheet" WarehousingRecordSheet
+
+PurchaseSystem "1" --> "1 -warehousingRecordSheet" WarehousingRecordSheet
+
+Drug "1" --> "1" SaleDrug
+Drug <|-- SaleRecord
+Drug <|-- WarehousingRecord
+
+SaleRecordSheet "1" --> "0...* -saleRecords" SaleRecord
+WarehousingRecordSheet "1" --> "0...* -warehousingRecords" WarehousingRecord
+
+DrugList "1" --> "0...* -drugs" Drug
+
+DrugDataLoading-->LoadingDrug
+PersonDataLoading-->LoadingPerson
+DrugList-->DrugDataLoading
+PersonList-->PersonDataLoading
+
+
+class DrugManagementSystem {
+}
+
+class PersonList {
+
++getPerson(name:String):Person
++addPerson(person:Person):Boolean
++removePerson(name:String):Boolean
+
+}
+
+class Person {
+
+-name:String
+-id:String
+-password:String
+-level:String
+
++getName():String
++getId():String
++getPassword():String
++getLevel():String
++setName(name:String):Boolean
++setId(id:String):Boolean
++setPassword(password:String):Boolean
++setLevel(level:String):Boolean
+
+}
+
+class SaleDrug {
+
+-name:String
+-sort:String
+-batchNumber:String
+-dosage:String
+-quantity:int
+-isPrescriptionDrug:Boolean
+-price:double
+
++getName():String
++getSort():String
++getBatchNumber():String
++getDosage():String
++getQuantity():String
++getIsPrescriptionDrug():Boolean
++getPrice():double
++setName(name:String):Boolean
++setSort(sort:String):Boolean
++setBatchNumber(batchNumber:String):Boolean
++setDosage(dosage:String):Boolean
++setIsPrescriptionDrug(isPrescriptionDrug:Boolean):Boolean
++setPrice(price:double):Boolean
+
+}
+class SaleDrugList {
+
+-number:String
+
++getNumber():String
++setNumber(number:String):String
++addSaleDrug(saleDrug:SaleDrug):Boolean
++removeSaleDrug(saleDrug:SaleDrug):Boolean
++getSaleDrug(name:String):SaleDrug
+
+}
+
+class Drug {
+
+-number:String
+-manufacturer:String
+-productionDate:String
+-shelfLife:int
+-purchasePrice:double
+
++getNumber():String
++getManufacturer():String
++getProductionDate():String
++getShelfLife():int
++getPurchasePrice():double
++setNumber(number:String):Boolean
++setManufacturer(manufacturer:String):Boolean
++setProductionDate(productionDate:String):Boolean
++setShelfLife(shelfLife:int):Boolean
++setPurchasePrice(purchasePrice:double):Boolean
++toString():String
++equals(drug:Drug):Boolean
+}
+
+class SaleRecord {
+
+-saleTime:String
+
++getSaleTime():String
++setSaleTime(saleTime:String):Boolean
++toString():String
++equals(saleRecord:SaleRecord):Boolean
+
+}
+
+class SaleRecordSheet {
+
+-number:String
+
++getNumber():String
++setNumber(number:String):Boolean
++addSaleRecord(saleRecord:SaleRecord):Boolean
++removeSaleRecord(name:String):Boolean
++getSaleRecord(name:String):SaleRecord
+
+}
+
+class WarehousingRecord {
+
+-purchaseTime:String
+
++getPurchaseTime():String
++setPurchaseTime(purchaseTime:String):Boolean
++toString():String
++equals(warehousingRecord:WarehousingRecord):Boolean
+
+}
+
+class WarehousingRecordSheet {
+
+-number:String
+
++getNumber():String
++setNumber(number:String):Boolean
++addWarehousingRecord(warehousingRecord:WarehousingRecord):Boolean
++removeWarehousingRecord(name:String):Boolean
++getWarehousingRecord(name:String):WarehousingRecord
+
+}
+
+class FinancialSystem {
+
++getMonthIncome(month:int):double
++getMonthExpend(month:int):double
++getTotalIncome(total:int):double
++getTotalExpend(total:int):double
++getMonthSaleRecordSheet(month:int):SaleRecordSheet
++getMonthWarehousingRecordSheet(month:int):WarehousingRecordSheet
+
+}
+
+class DrugList {
+
++getDrug(number:String):Drug
++removeDrug(number:String):Boolean
++addDrug(drug:Drug):Boolean
+
+}
+
+class PurchaseSystem {
+
++addWarehousingRecordSheet(warehousingRecordSheet:WarehousingRecordSheet):Boolean
++getWarehousingRecordSheet(number:String):WarehousingRecordSheet
++removeWarehousingRecordSheet(number:String):Boolean
+
+}
+
+interface DrugDataLoading{
+
++loadDrugData():DrugList;
+}
+
+class LoadingDrug{
+
++loadDrugData():DrugList;
+}
+
+interface PersonDataLoading{
+
++loadPersonData():PersonList;
+}
+
+class LoadingPerson{
+
++loadPersonData():PersonList;
+}
+
+@enduml

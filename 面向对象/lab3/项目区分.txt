@@ -1,0 +1,3 @@
+lab3code为题目一的项目
+lab3code2为题目二的项目
+Fact Pattern为题目二工厂模式

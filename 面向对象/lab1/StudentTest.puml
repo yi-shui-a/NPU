@@ -1,0 +1,135 @@
+
+@startuml
+skinparam groupInheritance 2
+
+class FuShiSystem
+class StudentList
+class Student
+class Paper
+class TestBank
+class Test
+class TestItem
+class Math
+class English
+class Major
+
+Test <|-- Math
+Test <|-- English
+Test <|--Major
+
+TestBank "1" --> "0...* -tests" Test
+TestItem "1" --> "1 -test" Test
+Paper "1" --> "10 -testItems" TestItem
+
+Student "1" --> "1 -paper" Paper
+StudentList "1" --> "0...* -students" Student
+
+FuShiSystem "1" --> "1 -studentList" StudentList
+FuShiSystem "1" --> "1 -testBank" TestBank
+
+class Math {
+-explain: String
+-address: String
+
++getAddress(): String
++setAddress(address: String):boolean
++getExplain(): String
++setExplain(explain: String):boolean
+}
+
+class English {
+-sort: String
+
++getSort(): String
++setSort(sort:String):boolean
+
+}
+
+class Major {
+-explain: String
+-address: String
+-body: String
+
++getAddress(): String
++setAddress(address: String):boolean
++getExplain(): String
++setExplain(explain: String):boolean
++getBody():String
++setBody(body: String):boolean
+}
+
+class Test {
+-id:String
+-title:String
+-degree:String
+-standard:String
+
++getId():String
++setId(id:String):boolean
++getTitle():String
++setTitle(title:String):boolean
++getDegree():String
++setDegree(degree:String):boolean
++getStandard():String
++setStandard(standard:String):boolean
+
+}
+
+class TestItem {
+-score: double
+
++getScore():double
++setScore(score:double):boolean
+}
+
+class TestBank {
+
++addTest(test :Test):boolean
++removeTest(test:Test):boolean
++getTest(id:String):Test
+
+}
+
+class Paper {
+
++getTotalScore():double
++setTotalScore(totalScore:double):boolean
++addTestItem(testItem:TestItem):boolean
++removeTestItem(testItem:TestItem):boolean
++getTestItem(id:String):TestItem
++getNumberOfTest():int
+
+}
+
+class Student {
+-name :String
+-Id: String
+
++getName(): String
++setName(name:String):boolean
++getId(): String
++setId(id:String):String
++toString():String
+}
+
+class StudentList {
+
++getStudent(id:String):Student
++addStudent(student: Student):boolean
++removeStudent(id:String)：boolean
++removeStudent(student: Student):boolean
++getNumberOfStudent():int
++toString():String
+}
+
+class FuShiSystem {
+
++displayAllStudent()
++generatePaper(id:String):boolean
++findAllScore(id:String):double
++findEveryScore(id:String)):double
+
+}
+
+
+@enduml

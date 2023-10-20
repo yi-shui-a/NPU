@@ -1,0 +1,11 @@
+name_id_password_level
+姓名_账号_密码_等级
+
+等级划分
+TopAdministrator顶层管理员
+
+Administrator管理员
+
+SalePerson销售员
+
+InputPerson采购员

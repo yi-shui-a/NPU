@@ -1,0 +1,9 @@
+name_sort_batchNumber_dosage_quantity_isPrescriptionDrug_price_number_manufacturer_productionData_shelfLife_purchasePrice
+名称_种类_批次号_规格_数量_是否处方药_价格_编号_生产厂家_生产日期_保质期_进价
+
+int quantity
+double price
+int shelfLife
+double purchasePrice
+
+
