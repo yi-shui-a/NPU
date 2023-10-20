@@ -1,0 +1,32 @@
+import  math
+import  Manu
+def  Test(arg,exp):
+  seekresult=CH_232_散热风扇.Clear()
+  seekresult=CH_232_温度传感器.Clear()
+  print '测试用例%d'%arg[0]
+  Protocol_温度传感器.温度值.Value = arg[1]
+  bool=Protocol_温度传感器.Write()
+  API.Common.Timer.Normal.Sleep(500)
+
+  Protocol_温度传感器.温度值.Value = arg[2]
+  bool=Protocol_温度传感器.Write()
+  API.Common.Timer.Normal.Sleep(500)
+
+  Protocol_温度传感器.温度值.Value = arg[3]
+  bool=Protocol_温度传感器.Write()
+  API.Common.Timer.Normal.Sleep(500)
+
+  show=[]
+
+  str = '界面显示是否正确?'
+  show.append(str)
+  passed=Manu.Check(show)
+
+  if(passed):
+    print '界面显示与预期一致,界面判断通过'
+  else:
+    print '界面显示与预期不一致,界面判断不通过'
+
+
+ ## Standard_Test:标准测试的方法入口，使用【测试数据】表循环调用Test方法
+Standard_Test(Test)

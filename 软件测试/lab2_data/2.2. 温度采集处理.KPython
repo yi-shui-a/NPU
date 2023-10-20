@@ -1,0 +1,15 @@
+# coding:utf-8
+############标准测试模板#######################
+## Test:测试数据执行函数体，【测试数据】每一行数据调用一次Test
+## arg:输入参数
+## exp：预期输出
+import Manu
+def Test(arg,exp):
+      Protocol_温度传感器.温度值.Value=arg[1]
+      bool=Protocol_温度传感器.Write()
+      API.Common.Timer.Normal.Sleep(100)
+
+      show=[]
+      show.append(exp[0])
+      Manu.Check(show)
+Standard_Test(Test)

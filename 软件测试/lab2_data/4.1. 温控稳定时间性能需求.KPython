@@ -1,0 +1,59 @@
+import math, Manu
+
+
+# 计算温差
+def deltaT(v, t, flag):
+    # 上升热量
+    Qi = v * v * 0.2
+    # 下降的热量，flag判断散热风扇是否工作
+    Qo = 0.1 * (t - 3) + 2 * flag
+    # 温差
+    dT = Qi - Qo
+
+    return dT
+
+
+def Test(arg, exp):
+    global temp
+    temp = arg[1]
+    exp = arg[0]
+    # 通道清理，将所有数据清空
+    seekresult = CH_232_加热棒.Clear()
+    seekresult = CH_232_温度传感器.Clear()
+    seekresult = CH_232_散热风扇.Clear()
+
+    i = 0
+    timer = 0
+    # 计算时间差
+    time1 = API.Common.Timer.Normal.Now()
+    while True:
+        print '时刻：%d, 当前温度%f' % (i, temp)
+        if abs(temp - exp) < 0.5:
+            timer = timer + 1
+            if timer == 10:
+                time2 = API.Common.Timer.Normal.Now()
+                print '温控稳定,时间为：'
+                print(time2 - time1)
+                break
+        else:
+            timer = 0
+
+        Protocol_温度传感器.温度值.Value = temp
+        bool = Protocol_温度传感器.Write()
+
+        # 获取散热风扇是否工作和加热棒电压
+        Protocol_加热棒.BlockRead()
+        Protocol_散热风扇.BlockRead()
+
+        getv = Protocol_加热棒.加热棒输出电压.Value
+        if Protocol_散热风扇.操作指令.Value == 1:
+            temp = temp + deltaT(getv, temp, 1)
+        else:
+            temp = temp + deltaT(getv, temp, 0)
+
+        # 模拟每秒
+        API.Common.Timer.Normal.Sleep(1000)
+        i = i + 1
+
+
+Standard_Test(Test)
